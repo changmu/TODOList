@@ -24,7 +24,7 @@
 
     <span>过滤状态：</span>
     <select name="state" v-model="selected">
-      <option disabled value="">Please select one</option>
+      <!-- <option disabled value="">Please select one</option> -->
       <option>所有</option>
       <option>待完成</option>
       <option>已完成</option>
@@ -46,7 +46,7 @@ const KEY_STORAGE = 'todos'
 const todos = ref(JSON.parse(localStorage.getItem(KEY_STORAGE)) || [])
 let cachedTODOs = todos.value
 const inputTitle = ref('')
-const selected = ref()
+const selected = ref('所有')
 
 // 持久化数据
 const save = () => {
