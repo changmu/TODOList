@@ -1,8 +1,9 @@
 <template>
   <h1 class="header">TODOs</h1>
-  <input class="text-input" 
+  <input id="text-input"
     type="text" 
     placeholder="what needs to be done"
+    ref="input"
     v-model.trim="inputTitle"
     @keydown.enter="handleTextInput"
   >
@@ -39,7 +40,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch, nextTick } from 'vue'
 import { NowUnix, NowTimeStr } from '@/util'
 
 const KEY_STORAGE = 'todos'
@@ -47,8 +48,9 @@ const KEY_STORAGE = 'todos'
 // 载入缓存数据
 const todos = ref(JSON.parse(localStorage.getItem(KEY_STORAGE)) || [])
 let cachedTODOs = todos.value
-const inputTitle = ref('')
+const inputTitle = ref()
 const selected = ref('所有')
+const input = ref(null)
 
 // 持久化数据
 const save = () => {
@@ -116,6 +118,13 @@ const toBeDoneCount = computed(() => {
   return todos.value.reduce((total, todo) => {
     return total + (todo.done ? 0 : 1)
   }, 0)
+})
+
+// 挂载后焦点给input
+onMounted(() => {
+  nextTick(() => {
+    input.value.focus()
+  })
 })
 
 

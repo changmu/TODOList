@@ -21,7 +21,8 @@ import { onMounted, ref } from 'vue'
 const commits = ref(null)
 
 // TODO 分页功能
-const API_URL = `https://api.github.com/repos/changmu/TODOList/commits?per_page=10&sha=main`
+// const API_URL = `https://api.github.com/repos/changmu/TODOList/commits?per_page=10&sha=main`
+const API_URL = `https://api.github.com/repos/changmu/TODOList/commits?sha=main`
 
 // 取数据
 onMounted(async () => {
