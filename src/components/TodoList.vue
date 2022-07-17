@@ -15,11 +15,13 @@
       type="checkbox" 
       v-model="todo.done"
       @click="clickDone($event, todo)"
-    > 
+    >
     <span :class="{ done: todo.done }">{{ todo.title }}</span>
+    <button class="delButton" @click="delItem(todo)">x</button>
   </div>
   <div class="footer">
-    <span>{{ toBeDoneCount }}个任务待完成</span>
+    <span v-if="todos.length === 0">暂无任务，请输入待办事项</span>
+    <span v-else>{{ toBeDoneCount }}个任务待完成</span>
     <br>
 
     <span>过滤状态：</span>
@@ -80,6 +82,11 @@ const removeDone = () => {
   todos.value = filters.notDone()
   save()
 }
+// 删除指定任务
+const delItem = (todo) => {
+  todos.value = todos.value.filter(item => item != todo)
+  save()
+}
 
 // 观察数据变化
 const clickDone = (e, todo) => {
@@ -89,7 +96,6 @@ const clickDone = (e, todo) => {
 
 // 观察选中的状态
 watch(selected, (newValue) => {
-  console.log('newValue:', newValue);
   if (newValue === '所有') {
     todos.value = cachedTODOs
   } else if (newValue === '待完成') {
@@ -118,5 +124,8 @@ const toBeDoneCount = computed(() => {
 <style>
 .done {
   text-decoration: line-through;
+}
+.delButton {
+  margin-left: 10px;
 }
 </style>
