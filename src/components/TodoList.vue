@@ -1,22 +1,10 @@
 <template>
   <h1 class="header">TODOs</h1>
-  <input id="text-input"
-    type="text" 
-    placeholder="what needs to be done"
-    ref="input"
-    v-model.trim="inputTitle"
-    @keydown.enter="handleTextInput"
-  >
+  <input id="text-input" type="text" placeholder="what needs to be done" ref="input" v-model.trim="inputTitle"
+    @keydown.enter="handleTextInput">
   <br>
-  <div class="todo-item" 
-    v-for="todo in todos" 
-    :key="todo.id"
-  >
-    <input 
-      type="checkbox" 
-      v-model="todo.done"
-      @click="clickDone($event, todo)"
-    >
+  <div class="todo-item" v-for="todo in todos" :key="todo.id">
+    <input type="checkbox" v-model="todo.done" @click="clickDone($event, todo)">
     <span :class="{ done: todo.done }">{{ todo.title }}</span>
     <button class="delButton" @click="delItem(todo)">x</button>
   </div>
@@ -134,7 +122,17 @@ onMounted(() => {
 .done {
   text-decoration: line-through;
 }
+
 .delButton {
   margin-left: 10px;
+  display: none;
+}
+
+.todo-item:hover {
+  background-color: chartreuse;
+}
+
+.todo-item:hover .delButton {
+  display: inline;
 }
 </style>
